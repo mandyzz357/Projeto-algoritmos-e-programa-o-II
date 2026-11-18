@@ -32,17 +32,19 @@ void mostrar_menu(){
 }
 
 /* Procedimento para cadastrar curso e bloquear se for o mesmo codigo */
-    void cadastrar_curso(Curso cursos[],int posicao, int quantidade) {
+
+    bool cadastrar_curso(Curso cursos[],int posicao, int quantidade) {
 // Curso cursos[] é o vetor que guarda os cursos
-// int quantidade é ncessário para procurar códigos repetidos, pois mostra quantos já existem
+// int quantidade é necessário para procurar códigos repetidos, pois mostra quantos já existem
     cout << "Digite o codigo do curso: ";
     cin >> cursos[posicao].cod_curso;
 // aqui há a implementação do código no curso que for cadastrado
     for (int i = 0; i < quantidade; i++) {
         if(cursos[i].cod_curso == cursos[posicao].cod_curso){
             cout << "Curso já cadastrado!" << endl;
-            return;
+            return false;
         }
+
 }
 
     cout << "Digite o nome do curso: ";
@@ -56,10 +58,13 @@ void mostrar_menu(){
     cin >> cursos[posicao].qtd_vagas;
 
     cout << "Curso cadastrado com sucesso!" << endl;
+
+        return true;
 }
 
 /* Procedimento para cadastrar aluno */
-     void cadastro_aluno(Alunos alunos[], int posicao, Curso cursos[], int qtd_cursos) {
+
+     bool cadastro_aluno(Alunos alunos[], int posicao, Curso cursos[], int qtd_cursos) {
 // o aluno só é vinculado se o curso já estiver cadastrado
     cout << "Digite o numero da matricula: ";
     cin >> alunos[posicao].num_matricula;
@@ -72,7 +77,7 @@ void mostrar_menu(){
     cin >> alunos[posicao].idade;
 // acima cadastra os dados do aluno
 
-    cout << "Digite o código do curso: ";
+    cout << "Digite o codigo do curso: ";
     cin >> alunos[posicao].cod_curso;
 
     bool curso_encontrado = false;
@@ -85,12 +90,16 @@ void mostrar_menu(){
 
     if(curso_encontrado == false) {
         cout << "Curso nao cadastrado!" << endl;
-        return;
+        return false;
     }
+
+    cout << "Aluno cadastrado com sucesso!" << endl;
+    return true;
 }
 
 
 /* Procedimento que lista os cursos */
+
     void listar_cursos(Curso cursos[], int quantidade) {
 // esse procedimento puxa todas as informações do curso cadastrado
         for (int i = 0; i < quantidade; i++) {
@@ -104,7 +113,8 @@ void mostrar_menu(){
     }
 
 /* Procedimento que lista os alunos */
-    void listar_alunos(Alunos alunos[], int quantidade) {
+
+    void listar_alunos(Alunos alunos[], int quantidade, Curso cursos[], int qtd_cursos) {
 
         for (int i = 0; i < quantidade; i++) {
 
@@ -113,11 +123,20 @@ void mostrar_menu(){
             cout << "Nome: " << alunos[i].nome_aluno << endl;
             cout << "Idade: " << alunos[i].idade << endl;
             cout << "Codigo do curso: " << alunos[i].cod_curso << endl;
+
+            for (int j = 0; j < qtd_cursos; j++) {
+
+                    if (alunos[i].cod_curso == cursos[j].cod_curso) {
+                cout << "Curso: " << cursos[j].nome_curso << endl;
+
+            }
         }
+    }
     }
 
 
 /* Procedimento para buscar alunos por curso */
+
     void busca_alunos(Alunos alunos[], int qtd_alunos, Curso cursos[], int qtd_cursos) {
 
         int busca;
@@ -158,6 +177,7 @@ void mostrar_menu(){
     }
 
 /* Procedimento para emitir o relatório geral */
+
     void relatorio(Alunos alunos[], int qtd_alunos, Curso cursos[], int qtd_cursos) {
 
         for (int i = 0; i < qtd_cursos; i++) {
@@ -178,7 +198,7 @@ void mostrar_menu(){
         }
     }
 
-int main() {
+    int main() {
 
     Curso cursos[MAX];
     Alunos alunos[MAX];
@@ -222,7 +242,7 @@ int main() {
 
         case 4:
 
-            listar_alunos(alunos, qtd_alunos);
+            listar_alunos(alunos, qtd_alunos, cursos, qtd_cursos);
 
             break;
 
@@ -252,5 +272,13 @@ int main() {
 
             cout << "Opcao invalida!" << endl;
         }
+
+
     }
-}
+
+
+
+    return 0;
+
+
+ }
