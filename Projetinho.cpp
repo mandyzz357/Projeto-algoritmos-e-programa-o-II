@@ -19,15 +19,15 @@ int idade;
 
 /* Procedimento que exibe o menu com as opções */
 void mostrar_menu(){
-    cout << "##################### BEM VIND@! #####################\n";
-    cout << "1 - Para cadastrar um curso.\n";
-    cout << "2 - Para cadastrar alunos.\n";
-    cout << "3 - Listar cursos.\n";
-    cout << "4 - Listar alunos.\n";
-    cout << "5 - Buscar alunos por curso.\n";
-    cout << "6 - Relatorio geral.\n";
-    cout << "0 - Sair.\n";
-    cout << "################################################\n\n";
+    cout << "##########################    BEM VIND@!   #################################\n";
+    cout << "##################### 1 - Para cadastrar um curso      #####################\n";
+    cout << "##################### 2 - Para cadastrar alunos        #####################\n";
+    cout << "##################### 3 - Listar cursos                #####################\n";
+    cout << "##################### 4 - Listar alunos                #####################\n";
+    cout << "##################### 5 - Buscar alunos por curso      #####################\n";
+    cout << "##################### 6 - Relatorio geral              #####################\n";
+    cout << "##################### 0 - Sair                         #####################\n";
+    cout << "############################################################################\n\n";
     cout << "Digite sua opcao: ";
 }
 
@@ -36,12 +36,13 @@ void mostrar_menu(){
     bool cadastrar_curso(Curso cursos[],int posicao, int quantidade) {
 // Curso cursos[] é o vetor que guarda os cursos
 // int quantidade é necessário para procurar códigos repetidos, pois mostra quantos já existem
+// posicao é em qual caixinha do vetor eu coloco meu curso
     cout << "Digite o codigo do curso: ";
     cin >> cursos[posicao].cod_curso;
 // aqui há a implementação do código no curso que for cadastrado
     for (int i = 0; i < quantidade; i++) {
         if(cursos[i].cod_curso == cursos[posicao].cod_curso){
-            cout << "Curso já cadastrado!" << endl;
+            cout << "Curso ja cadastrado!" << endl;
             return false;
         }
 
@@ -65,6 +66,7 @@ void mostrar_menu(){
 /* Procedimento para cadastrar aluno */
 
      bool cadastro_aluno(Alunos alunos[], int posicao, Curso cursos[], int qtd_cursos) {
+
 // o aluno só é vinculado se o curso já estiver cadastrado
     cout << "Digite o numero da matricula: ";
     cin >> alunos[posicao].num_matricula;
@@ -93,8 +95,13 @@ void mostrar_menu(){
         return false;
     }
 
-    cout << "Aluno cadastrado com sucesso!" << endl;
+    cout << "Aluno cadastrado com sucesso!\n\n" << endl;
     return true;
+
+    /* cod_curso é o elo entre o aluno e o curso, onde o cadastro do codigo acontece primeiro,
+    e ao cadastrar um aluno, o cod_curso aparece novamente, assim como no relatorio geral,
+    pois é a partir dele que sabemos se o aluno é daquele curso ou não
+    */
 }
 
 
@@ -104,10 +111,11 @@ void mostrar_menu(){
 // esse procedimento puxa todas as informações do curso cadastrado
         for (int i = 0; i < quantidade; i++) {
             cout << "---------------------------------" << endl;
-            cout << "Código: " << cursos[i].cod_curso << endl;
+            cout << "Codigo: " << cursos[i].cod_curso << endl;
             cout << "Nome: " << cursos[i].nome_curso << endl;
             cout << "Carga Horaria: " << cursos[i].ch_total << endl;
             cout << "Quantidade de vagas: " << cursos[i].qtd_vagas << endl;
+            cout << "----------------------------------" << endl;
         }
 
     }
@@ -123,6 +131,7 @@ void mostrar_menu(){
             cout << "Nome: " << alunos[i].nome_aluno << endl;
             cout << "Idade: " << alunos[i].idade << endl;
             cout << "Codigo do curso: " << alunos[i].cod_curso << endl;
+            cout << "---------------------------------" << endl;
 
             for (int j = 0; j < qtd_cursos; j++) {
 
@@ -153,6 +162,7 @@ void mostrar_menu(){
 
     if(curso_encontrado == false) {
         cout << "Curso nao cadastrado!" << endl;
+        cout << "---------------------------------" << endl;
 
         return;
     }
@@ -166,6 +176,7 @@ void mostrar_menu(){
                 cout << "Nome: " << alunos[i].nome_aluno << endl;
                 cout << "Matricula: " << alunos[i].num_matricula << endl;
                 cout << "Idade: " << alunos[i].idade << endl;
+                cout << "---------------------------------" << endl;
 
             }
 
@@ -173,6 +184,7 @@ void mostrar_menu(){
 
         if (aluno_encontrado == false) {
             cout << "Nenhum aluno matriculado neste curso." << endl;
+            cout << "---------------------------------" << endl;
         }
     }
 
@@ -195,6 +207,7 @@ void mostrar_menu(){
             cout << "Curso: " << cursos[i].nome_curso << endl;
             cout << "Codigo: " << cursos[i].cod_curso << endl;
             cout << "Quantidade de alunos: " << quantidade << endl;
+            cout << "---------------------------------" << endl;
         }
     }
 
